@@ -1,0 +1,59 @@
+<project>
+  <Metadata>
+    <metadata>
+      <PackageName>LocalDatasources</PackageName>
+      <Author>Gert Gullentops - Nico Geeroms</Author>
+      <Version>1.0</Version>
+      <Revision />
+      <License />
+      <Comment />
+      <Attributes />
+      <Readme />
+      <Publisher>The Reference</Publisher>
+      <PostStep />
+      <PackageID />
+    </metadata>
+  </Metadata>
+  <SaveProject>True</SaveProject>
+  <Sources>
+    <xitems>
+      <Entries>
+        <x-item>/master/sitecore/templates/TheReference-Packages/{6E3DD318-B22C-421A-B556-2050EDD3216B}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/TheReference-Packages/LocalDatasources/{5A2616D5-43C5-4FFB-BBAA-1A5C2D49912D}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/TheReference-Packages/LocalDatasources/LocalDataFolder/{A37C4ADC-A626-4807-ACDD-748AD26C4144}/invariant/0</x-item>
+      </Entries>
+      <SkipVersions>False</SkipVersions>
+      <Converter>
+        <ItemToEntryConverter>
+          <Transforms />
+        </ItemToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>Templates</Name>
+    </xitems>
+    <xfiles>
+      <Entries>
+        <x-item>/App_Config/Include/zLocalDatasources/LocalDatasources.config</x-item>
+        <x-item>/bin/TheReference.DotNet.Sitecore.LocalDatasources.dll</x-item>
+      </Entries>
+      <Converter>
+        <FileToEntryConverter>
+          <Root>/</Root>
+          <Transforms />
+        </FileToEntryConverter>
+      </Converter>
+      <Include />
+      <Exclude />
+      <Name>Files</Name>
+    </xfiles>
+  </Sources>
+  <Converter>
+    <TrivialConverter>
+      <Transforms />
+    </TrivialConverter>
+  </Converter>
+  <Include />
+  <Exclude />
+  <Name />
+</project>

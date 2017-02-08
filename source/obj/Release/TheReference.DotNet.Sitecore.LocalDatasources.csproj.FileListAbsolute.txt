@@ -1,0 +1,14 @@
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\bin\Release\TheReference.DotNet.Sitecore.LocalDatasources.dll
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\bin\Release\TheReference.DotNet.Sitecore.LocalDatasources.pdb
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\bin\Release\Sitecore.Kernel.dll
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.csprojResolveAssemblyReference.cache
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.dll
+C:\Projects\Library\TheReference.DotNet.Sitecore.LocalDatasources\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.pdb
+C:\Projects\Modules\LocalDatasources\source\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.csprojResolveAssemblyReference.cache
+C:\Projects\Modules\LocalDatasources\source\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.dll
+C:\Projects\Modules\LocalDatasources\source\obj\Release\TheReference.DotNet.Sitecore.LocalDatasources.pdb
+C:\Projects\Modules\LocalDatasources\source\bin\Release\TheReference.DotNet.Sitecore.LocalDatasources.dll
+C:\Projects\Modules\LocalDatasources\source\bin\Release\TheReference.DotNet.Sitecore.LocalDatasources.pdb
+C:\Projects\Modules\LocalDatasources\source\bin\Release\Sitecore.Client.dll
+C:\Projects\Modules\LocalDatasources\source\bin\Release\Sitecore.ExperienceEditor.dll
+C:\Projects\Modules\LocalDatasources\source\bin\Release\Sitecore.Kernel.dll
