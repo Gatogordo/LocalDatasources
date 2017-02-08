@@ -52,5 +52,6 @@ You will need to adapt your rendering definition to work with the local datasour
 
 Some ideas did not make it in version 1 and are still "open".. 
 
-- remove datasource items if the rendering is removed (and no other links are found) 
+- remove datasource items if the rendering is removed (and no other links are found)
+- a solution  for renderings that are already set on the standard values of a template
 - ...

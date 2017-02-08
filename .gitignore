@@ -1,0 +1,5 @@
+source/obj/
+source/bin/
+source/packages/
+source/.vs/
+*.user
