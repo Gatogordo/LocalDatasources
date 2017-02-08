@@ -46,3 +46,11 @@ You will need to adapt your rendering definition to work with the local datasour
 - Datasource Template: is used to create the datasource item from the correct template (and for it's name)
 - Datasource Location: the module will create a local datasource only if the location starts with `"./"`.  The remainder of the location will be the name of your datafolder. So you might want to set it to `"./data"`.
 
+
+
+## Future ##
+
+Some ideas did not make it in version 1 and are still "open".. 
+
+- remove datasource items if the rendering is removed (and no other links are found) 
+- ...
