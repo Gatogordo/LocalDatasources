@@ -23,7 +23,7 @@ More indept information on the code will be available on [https://ggullentops.bl
 
 > **Important**: this module is **not** compatible with **SXA**
 
-The module was created and tested on Sitecore 8.2 initial release, update-1 and update-2.
+The module was created and tested on Sitecore 8.2 initial release, update-1 and update-2. It works in experience editor only (we assume that people working in the content editor know what they are doing and can create their own datasources...).
 
 As we do override the AddRendering command, the module needs a Sitecore version with the exact same code as the one we used in that command to keep all renderings without local datasources to work as expected.
 
@@ -52,6 +52,7 @@ You will need to adapt your rendering definition to work with the local datasour
 
 Some ideas did not make it in version 1 and are still "open".. 
 
-- remove datasource items if the rendering is removed (and no other links are found)
-- a solution  for renderings that are already set on the standard values of a template
-- ...
+1. a solution  for renderings that are already set on the standard values of a template
+2. remove datasource items if the rendering is removed (and no other links are found)
+3. content editor support
+4. ...
