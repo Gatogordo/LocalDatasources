@@ -6,7 +6,7 @@
 We assume people working with Sitecore and reading this know what datasources are. Some of you might even work with a "local" datasources. Local meaning that the datasource item is coupled with the "page" item where it is used in a hierarchical way by storing the datasource item underneath the page item - in a "local" data folder.
 
 ### Why ###
-Sometimes the solution architect will want to use datasources (don't we want that always?) to enable marketers to use all of Sitecore's features, but some editors find it hard (or just too much work) to create those datasource items. So we tried to automate this proces for datasources that should not be shared amongst "pages". 
+Sometimes the solution architect will want to use datasources (don't we want that always?) to enable marketers to use all of Sitecore's features, but some editors find it hard (or just too much work) to create those datasource items. So we tried to automate this process for datasources that should not be shared amongst "pages". 
 
 ### How ###
 The solution now consists of 2 parts.
