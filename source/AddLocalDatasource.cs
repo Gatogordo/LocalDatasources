@@ -14,7 +14,7 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources
     {
         private const string RelativePath = "./";
 
-        private static readonly TemplateID LocalDataFolderTemplateId = new TemplateID(new ID("{A37C4ADC-A626-4807-ACDD-748AD26C4144}"));
+        internal static readonly Guid LocalDataFolderTemplateId = new Guid("{A37C4ADC-A626-4807-ACDD-748AD26C4144}");
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is part of a sitecore pipeline and should not be static")]
         public void Process(GetRenderingDatasourceArgs args)
@@ -73,12 +73,15 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources
         private static Item AddDataFolderItem(string datasourceLocation, Item parent)
         {
             var itemName = datasourceLocation.Remove(0, 2);
+            var localDataFolderTemplateId = new TemplateID(new ID(LocalDataFolderTemplateId));
             using (new SecurityDisabler())
             {
                 using (new SiteContextSwitcher(SiteContextFactory.GetSiteContext("system")))
                 {
-                    var newItem = parent.Add(itemName, LocalDataFolderTemplateId);
-                    newItem["SortOrder"] = "-9999";
+                    var newItem = parent.Add(itemName, localDataFolderTemplateId);
+                    newItem.Editing.BeginEdit();
+                    newItem.Appearance.Sortorder = 9999;
+                    newItem.Editing.EndEdit(false, false);
                     return newItem;
                 }
             }
