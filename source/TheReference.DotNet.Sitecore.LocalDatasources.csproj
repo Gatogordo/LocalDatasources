@@ -63,11 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddLocalDatasource.cs" />
+    <Compile Include="ItemAddedBranchHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddRendering.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Config\Include\zLocalDatasources\LocalDatasources.config" />
+    <None Include="App_Config\Include\zLocalDatasources\LocalDatasources.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
