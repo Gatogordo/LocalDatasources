@@ -9,11 +9,12 @@ We assume people working with Sitecore and reading this know what datasources ar
 Sometimes the solution architect will want to use datasources (don't we want that always?) to enable marketers to use all of Sitecore's features, but some editors find it hard (or just too much work) to create those datasource items. So we tried to automate this process for datasources that should not be shared amongst "pages". 
 
 ### How ###
-The solution now consists of 2 parts.
+The solution now consists of 3 parts.
 
 
 1. The first part will create the actual datasource item (and the data folder if that does not yet exists - datafolder will be pushed as latest child). The template name of the required datasource is used as base for the item name, combined with a number. 
-2. A second part will prevent the "Select the associated content" dialog from appearing. 
+2. A second part will prevent the "Select the associated content" dialog from appearing.
+3. In v2.0 a handler was added that will detect if an item was added from a branch template. If so, the code will search for local datasources included in branch items and set the datasource value in the renderings to the newly created items (works only for shared rendering for now).  
 
 More indept information on the code will be available on [https://ggullentops.blogspot.com](https://ggullentops.blogspot.com).
 
@@ -46,13 +47,15 @@ You will need to adapt your rendering definition to work with the local datasour
 - Datasource Template: is used to create the datasource item from the correct template (and for it's name)
 - Datasource Location: the module will create a local datasource only if the location starts with `"./"`.  The remainder of the location will be the name of your datafolder. So you might want to set it to `"./data"`.
 
+### Standard values ###
+Sometimes we want to add renderings to the layout on the standard values of a "page" item. But what if that rendering is local? A solution was found based on branch templates: create a **branch** template of the template you want, and add the local rendering there. You can do this with the experience editor and the module will create the local datasource item for you (in the branch). When someone creates a content item based on the branch, the datasource item will also be created. In order to set the datasource value to the newly created item instead of the one in the branch, we added some code to the item:added event in v2.0.     
 
 
 ## Future ##
 
 Some ideas did not make it in version 1 and are still "open".. 
 
-1. a solution  for renderings that are already set on the standard values of a template
+1. a solution  for renderings that are already set on the standard values of a template (done - see v2.0)
 2. remove datasource items if the rendering is removed (and no other links are found)
 3. content editor support
 4. ...
