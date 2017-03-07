@@ -7,7 +7,7 @@ using Sitecore.Pipelines.GetRenderingDatasource;
 using Sitecore.SecurityModel;
 using Sitecore.Sites;
 
-namespace TheReference.DotNet.Sitecore.LocalDatasources
+namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Datasource", Justification = "Same spelling as used by sitecore")]
     public class AddLocalDatasource
@@ -22,6 +22,11 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));
+            }
+
+            if (!string.IsNullOrEmpty(args.CurrentDatasource))
+            {
+                return;
             }
 
             var locations = args.RenderingItem["Datasource Location"].Split('|');
@@ -79,9 +84,11 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources
                 using (new SiteContextSwitcher(SiteContextFactory.GetSiteContext("system")))
                 {
                     var newItem = parent.Add(itemName, localDataFolderTemplateId);
-                    newItem.Editing.BeginEdit();
-                    newItem.Appearance.Sortorder = 9999;
-                    newItem.Editing.EndEdit(false, false);
+                    using (new EditContext(newItem, false, false))
+                    {
+                        newItem.Appearance.Sortorder = 9999;
+                    }
+
                     return newItem;
                 }
             }

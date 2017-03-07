@@ -14,7 +14,7 @@ using Sitecore.Web;
 using Sitecore.Web.UI.Sheer;
 using WebEditUtil = Sitecore.Web.WebEditUtil;
 
-namespace TheReference.DotNet.Sitecore.LocalDatasources
+namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Commands
 {
     [Serializable]
     public class AddRendering : global::Sitecore.Shell.Applications.WebEdit.Commands.AddRendering

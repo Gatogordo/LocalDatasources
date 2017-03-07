@@ -62,10 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddLocalDatasource.cs" />
-    <Compile Include="ItemAddedBranchHandler.cs" />
+    <Compile Include="Infrastructure\Pipelines\AddLocalDatasource.cs" />
+    <Compile Include="Infrastructure\Events\ItemLocalDatasourcesHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AddRendering.cs" />
+    <Compile Include="Infrastructure\Commands\AddRendering.cs" />
+    <Compile Include="Services\LocalDatasourceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Config\Include\zLocalDatasources\LocalDatasources.config">
@@ -78,6 +79,7 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
