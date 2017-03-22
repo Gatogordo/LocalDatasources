@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Globalization;
@@ -14,7 +15,13 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
     {
         private const string RelativePath = "./";
 
-        internal static readonly Guid LocalDataFolderTemplateId = new Guid("{A37C4ADC-A626-4807-ACDD-748AD26C4144}");
+        internal static readonly Guid LocalDataFolderTemplateId;
+
+        static AddLocalDatasource()
+        {
+            string templateIdString = Settings.GetSetting("LocalDatasources.DataFolderTemplateId", "{A37C4ADC-A626-4807-ACDD-748AD26C4144}");
+            LocalDataFolderTemplateId = new Guid(templateIdString);
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is part of a sitecore pipeline and should not be static")]
         public void Process(GetRenderingDatasourceArgs args)
