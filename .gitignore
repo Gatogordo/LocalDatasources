@@ -3,3 +3,4 @@ source/bin/
 source/packages/
 source/.vs/
 *.user
+*.tss
