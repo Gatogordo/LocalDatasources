@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Sitecore;
 using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -103,20 +104,47 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
 
         private static Item AddDatasourceItem(GetRenderingDatasourceArgs args, Item datasourceFolder)
         {
-            var datasourceTemplate = args.RenderingItem["Datasource Template"];
-            var datasourceTemplateItem = (TemplateItem) args.ContentDatabase.GetItem(datasourceTemplate);
-            var count = datasourceFolder.Children.Count(c => c.TemplateID.Equals(datasourceTemplateItem.ID));
+            string datasourceTemplate = args.RenderingItem["Datasource Template"];
 
+            Item item = args.ContentDatabase.GetItem(datasourceTemplate);
+            
+            string datasourceName = CreateDatasourceName(datasourceFolder, item);
+            
             using (new SecurityDisabler())
             {
                 using (new SiteContextSwitcher(SiteContextFactory.GetSiteContext("system")))
                 {
                     using (new LanguageSwitcher(args.ContentLanguage))
                     {
-                        return datasourceFolder.Add(FormattableString.Invariant($"{datasourceTemplateItem.Name} {count + 1}"), datasourceTemplateItem);
+                        if (item.TemplateID == TemplateIDs.Template)
+                        {
+                            return datasourceFolder.Add(datasourceName, (TemplateItem) item);
+                        }
+
+                        if (item.TemplateID == TemplateIDs.BranchTemplate)
+                        {
+                            return datasourceFolder.Add(datasourceName, (BranchItem) item);
+                        }
+
+                        throw new ArgumentException($"Datasource Template \"{datasourceTemplate}\" does not correspond to a valid template or branch template.");
                     }
                 }
             }
+        }
+
+        private static string CreateDatasourceName(Item datasourceFolder, Item item)
+        {
+            var number = 1;
+            string datasourceName;
+
+            do
+            {
+                datasourceName = FormattableString.Invariant($"{item.Name} {number}");
+                number++;
+            }
+            while (datasourceFolder.Children.Any(i => i.Name == datasourceName));
+
+            return datasourceName;
         }
     }
 }
