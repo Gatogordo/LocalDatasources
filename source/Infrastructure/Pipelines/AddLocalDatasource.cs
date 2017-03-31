@@ -105,15 +105,23 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
         {
             var datasourceTemplate = args.RenderingItem["Datasource Template"];
             var datasourceTemplateItem = (TemplateItem) args.ContentDatabase.GetItem(datasourceTemplate);
-            var count = datasourceFolder.Children.Count(c => c.TemplateID.Equals(datasourceTemplateItem.ID));
 
+            var number = 1;
+            string dataSourceName;
+
+            do
+            {
+                dataSourceName = FormattableString.Invariant($"{datasourceTemplateItem.Name} {number}");
+                number++;
+            } while (datasourceFolder.Children.Any(i => i.Name == dataSourceName));
+            
             using (new SecurityDisabler())
             {
                 using (new SiteContextSwitcher(SiteContextFactory.GetSiteContext("system")))
                 {
                     using (new LanguageSwitcher(args.ContentLanguage))
                     {
-                        return datasourceFolder.Add(FormattableString.Invariant($"{datasourceTemplateItem.Name} {count + 1}"), datasourceTemplateItem);
+                        return datasourceFolder.Add(dataSourceName, datasourceTemplateItem);
                     }
                 }
             }
