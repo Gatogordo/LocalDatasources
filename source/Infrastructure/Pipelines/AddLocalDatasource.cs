@@ -116,17 +116,32 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
                 {
                     using (new LanguageSwitcher(args.ContentLanguage))
                     {
+                        Item datasourceItem;
+
                         if (item.TemplateID == TemplateIDs.Template)
                         {
-                            return datasourceFolder.Add(datasourceName, (TemplateItem) item);
+                            datasourceItem = datasourceFolder.Add(datasourceName, (TemplateItem) item);
                         }
-
-                        if (item.TemplateID == TemplateIDs.BranchTemplate)
+                        else if (item.TemplateID == TemplateIDs.BranchTemplate)
                         {
-                            return datasourceFolder.Add(datasourceName, (BranchItem) item);
+                            datasourceItem = datasourceFolder.Add(datasourceName, (BranchItem) item);
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Datasource Template \"{datasourceTemplate}\" does not correspond to a valid template or branch template.");
                         }
 
-                        throw new ArgumentException($"Datasource Template \"{datasourceTemplate}\" does not correspond to a valid template or branch template.");
+                        Item localizedDatasource = datasourceItem.Database.GetItem(datasourceItem.ID, args.ContentLanguage);
+
+                        if (localizedDatasource.Versions.Count == 0)
+                        {
+                            using (new EditContext(localizedDatasource))
+                            {
+                                localizedDatasource.Versions.AddVersion();
+                            }
+                        }
+
+                        return localizedDatasource;
                     }
                 }
             }
