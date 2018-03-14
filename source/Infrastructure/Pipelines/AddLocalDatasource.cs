@@ -15,6 +15,7 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
     public class AddLocalDatasource
     {
         private const string RelativePath = "./";
+        private const string QueryPrefix = "query:";
 
         internal static readonly Guid LocalDataFolderTemplateId;
 
@@ -38,7 +39,7 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
             }
 
             var locations = args.RenderingItem["Datasource Location"].Split('|');
-            if (!locations.Any(x => x.Contains(RelativePath)))
+            if (!locations.Any(x => x.StartsWith(RelativePath, StringComparison.OrdinalIgnoreCase)))
             {
                 return;
             }
@@ -56,9 +57,20 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
                 {
                     CreateDatasource(args, datasourceLocation);
                 }
+                else if (datasourceLocation.StartsWith(QueryPrefix, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(args.ContextItemPath))
+                {
+                    var query = datasourceLocation.Substring(QueryPrefix.Length);
+                    AddRootsFromQuery(args, query);
+                }
                 else
                 {
-                    args.DatasourceRoots.Add(args.ContentDatabase.GetItem(datasourceLocation));
+                    var datasourceLocationItem = args.ContentDatabase.GetItem(datasourceLocation);
+                    if (datasourceLocationItem == null)
+                    {
+                        throw new ArgumentException(FormattableString.Invariant($"Could not find Datasource Root at the given location: {datasourceLocation}"));
+                    }
+
+                    args.DatasourceRoots.Add(datasourceLocationItem);
                 }
             }
         }
@@ -128,7 +140,7 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
                         }
                         else
                         {
-                            throw new ArgumentException($"Datasource Template \"{datasourceTemplate}\" does not correspond to a valid template or branch template.");
+                            throw new ArgumentException(FormattableString.Invariant($"Datasource Template \"{datasourceTemplate}\" does not correspond to a valid template or branch template."));
                         }
 
                         Item localizedDatasource = datasourceItem.Database.GetItem(datasourceItem.ID, args.ContentLanguage);
@@ -144,6 +156,28 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines
                         return localizedDatasource;
                     }
                 }
+            }
+        }
+
+        private static void AddRootsFromQuery(GetRenderingDatasourceArgs args, string query)
+        {
+            Item[] items = null;
+            if (query.StartsWith(RelativePath, StringComparison.OrdinalIgnoreCase))
+            {
+                var contextItem = args.ContentDatabase.GetItem(args.ContextItemPath);
+                if (contextItem != null)
+                {
+                    items = contextItem.Axes.SelectItems(query);
+                }
+            }
+            else
+            {
+                items = args.ContentDatabase.SelectItems(query);
+            }
+
+            if (items != null && items.Any())
+            {
+                args.DatasourceRoots.AddRange(items);
             }
         }
 
