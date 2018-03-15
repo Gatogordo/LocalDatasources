@@ -16,6 +16,7 @@ The solution now consists of several parts.
 2. A second part will prevent the "Select the associated content" dialog from appearing.
 3. In v2.0 a handler was added that will detect if an item was added from a branch template. If so, the code will search for local datasources included in branch items and set the datasource value in the renderings to the newly created items.
 4. In v3.0 we did a few bugfixes but also created a solution for final layouts and copying items with local datasources.   
+5. v3.1 includes a few more bugfixes and support or branch templates as datasource and a configurable data template (thanks to D. Shevshenko for this)
 
 More indept information on the code will be available on [https://ggullentops.blogspot.com](https://ggullentops.blogspot.com).
 
@@ -53,14 +54,15 @@ Sometimes we want to add renderings to the layout on the standard values of a "p
 
 ## History ##
 - v1.0 : initial release focussing on XP editor support and creating the datasource items
-- v2.0 : added support for standard values trhough branches (and some bugfixes)
+- v2.0 : added support for standard values through branches (and some bugfixes)
 - v3.0 : added support for final layouts and copying items with local datasources (and some bugfixes)
+- v3.1 : added support for branches as datasource and made data template configurable
 
 
 ## Future ##
 
 Some ideas did not make it in version 1 and are still "open".. 
 
-1. 2. remove datasource items if the rendering is removed (and no other links are found)
-3. content editor support
+1. publish options for data folder and subitems
+2. content editor support
 4. ...
