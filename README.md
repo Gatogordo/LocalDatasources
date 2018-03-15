@@ -16,7 +16,7 @@ The solution now consists of several parts.
 2. A second part will prevent the "Select the associated content" dialog from appearing.
 3. In v2.0 a handler was added that will detect if an item was added from a branch template. If so, the code will search for local datasources included in branch items and set the datasource value in the renderings to the newly created items.
 4. In v3.0 we did a few bugfixes but also created a solution for final layouts and copying items with local datasources.   
-5. v3.1 includes a few more bugfixes and support or branch templates as datasource and a configurable data template (thanks to D. Shevshenko for this)
+5. v3.1 includes a few more bugfixes and support or branch templates as datasource and a configurable data template (thanks to D. Shevchenko for this)
 
 More indept information on the code will be available on [https://ggullentops.blogspot.com](https://ggullentops.blogspot.com).
 
