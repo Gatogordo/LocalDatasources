@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sitecore.Collections;
+using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines;
@@ -44,10 +45,10 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Services
 
             var pairs = GetMatchingLocalSources(source, target).ToList();
             ProcessField(target.Fields[global::Sitecore.FieldIDs.LayoutField], pairs);
-            ProcessFieldForAllLanguages(source, target, target.Fields[global::Sitecore.FieldIDs.FinalLayoutField], pairs);
+            ProcessFieldForAllLanguages(source, target, global::Sitecore.FieldIDs.FinalLayoutField, pairs);
         }
 
-        private static void ProcessFieldForAllLanguages(Item source, Item target, Field field, IReadOnlyCollection<Pair<Item, Item>> pairs)
+        private static void ProcessFieldForAllLanguages(Item source, Item target, ID fieldId, IReadOnlyCollection<Pair<Item, Item>> pairs)
         {
             foreach (var itemLanguage in source.Languages)
             {
@@ -59,7 +60,7 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Services
                 if (targetLanguageVersion.Versions.Count <= 0)
                     continue;
 
-                ProcessField(field, pairs);
+                ProcessField(targetLanguageVersion.Fields[fieldId], pairs);
             }
         }
 
