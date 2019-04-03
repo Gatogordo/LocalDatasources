@@ -44,8 +44,25 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Services
 
             var pairs = GetMatchingLocalSources(source, target).ToList();
             ProcessField(target.Fields[global::Sitecore.FieldIDs.LayoutField], pairs);
-            ProcessField(target.Fields[global::Sitecore.FieldIDs.FinalLayoutField], pairs);
+            ProcessFieldForAllLanguages(source, target, target.Fields[global::Sitecore.FieldIDs.FinalLayoutField], pairs);
         }
+
+        private static void ProcessFieldForAllLanguages(Item source, Item target, Field field, IReadOnlyCollection<Pair<Item, Item>> pairs)
+        {
+            foreach (var itemLanguage in source.Languages)
+            {
+                var sourceLanguageVersion = source.Database.GetItem(source.ID, itemLanguage);
+                if (sourceLanguageVersion.Versions.Count <= 0)
+                    continue;
+
+                var targetLanguageVersion = target.Database.GetItem(target.ID, itemLanguage);
+                if (targetLanguageVersion.Versions.Count <= 0)
+                    continue;
+
+                ProcessField(field, pairs);
+            }
+        }
+
 
         private static IEnumerable<Pair<Item, Item>> GetMatchingLocalSources(Item source, Item target)
         {
