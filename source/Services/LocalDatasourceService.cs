@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sitecore.Collections;
+using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using TheReference.DotNet.Sitecore.LocalDatasources.Infrastructure.Pipelines;
@@ -44,8 +45,25 @@ namespace TheReference.DotNet.Sitecore.LocalDatasources.Services
 
             var pairs = GetMatchingLocalSources(source, target).ToList();
             ProcessField(target.Fields[global::Sitecore.FieldIDs.LayoutField], pairs);
-            ProcessField(target.Fields[global::Sitecore.FieldIDs.FinalLayoutField], pairs);
+            ProcessFieldForAllLanguages(source, target, global::Sitecore.FieldIDs.FinalLayoutField, pairs);
         }
+
+        private static void ProcessFieldForAllLanguages(Item source, Item target, ID fieldId, IReadOnlyCollection<Pair<Item, Item>> pairs)
+        {
+            foreach (var itemLanguage in source.Languages)
+            {
+                var sourceLanguageVersion = source.Database.GetItem(source.ID, itemLanguage);
+                if (sourceLanguageVersion.Versions.Count <= 0)
+                    continue;
+
+                var targetLanguageVersion = target.Database.GetItem(target.ID, itemLanguage);
+                if (targetLanguageVersion.Versions.Count <= 0)
+                    continue;
+
+                ProcessField(targetLanguageVersion.Fields[fieldId], pairs);
+            }
+        }
+
 
         private static IEnumerable<Pair<Item, Item>> GetMatchingLocalSources(Item source, Item target)
         {
